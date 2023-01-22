@@ -1,0 +1,9 @@
+<% @index.each do |post_image| %>
+<div>
+  <%= image_tag post_image.get_image %>
+  <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+  <p>title：<%= post_image.title %></p>
+  <p>body：<%= post_image.body %></p>
+
+</div>
+<% end %>
