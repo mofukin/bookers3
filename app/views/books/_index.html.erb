@@ -1,0 +1,28 @@
+
+<div>
+  <h1>Book detail</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4" style="background-color: orange;">
+          <h2>サイドバー</h2>
+        </div>
+        <div class="col-lg-8">
+          <table class="table table-striped">
+            <% @post_books.each do |book| %>
+              <tr>
+                <th><p><%= image_tag book.user.get_profile_image(100,100) %></p></th>
+                <th><p>title：<%= book.title %></p></th>
+                <th><p>body：<%= book.body %></p></th>
+                <th><%= link_to "Edit", "/books/#{book.id}/edit", class: "btn btn-success" %></th>
+                <th><%= link_to "Destroy", destroy_list_path(book.id),method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></th>
+
+              </tr>
+            <% end %>
+            <%= paginate @post_books %>
+          </table>
+        </div>
+      </div>
+    </div>
+
+</div>
+

@@ -1,2 +1,20 @@
-<h1>Books#edit</h1>
-<p>Find me in app/views/books/edit.html.erb</p>
+<h1>Editing Book</h1>
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>errors
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @book do |f| %>
+  <label for="inputTitle">Title</label><br>
+  <%= f.text_field :title, autofocus: true, id:"inputTitle", placeholder:"タイトル"%><br>
+
+  <label for="inputBody">Opinion</label><br>
+  <%= f.text_field :body, autofocus: true, id:"inputBody", placeholder:"感想"%><br>
+  <%= f.submit "Update Book", class: "btn btn-success" %><br>
+  <%= link_to "Show", "/books/#{@book.id}" %>
+  <%= link_to "Back", '/books' %>
+<% end %>

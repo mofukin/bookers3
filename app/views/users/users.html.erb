@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <%= render partial: 'show',locals: {user: @user} %>
+      <% if @user.id == current_user.id %>
+        <%= link_to "/users/#{@user.id}/edit", class: "btn btn-secondary" do %>
+        <i class="fas fa-users-cog"></i>
+        <% end %>
+      <% end %>
+      <%= render partial: 'books/new',locals: {book: @book} %>
+    </div>
+
+    <div class="col-lg-9">
+      <div>
+        <h1>Users</h1>
+        <table>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr>
+              <th><p><%= image_tag user.get_profile_image(100,100) %></p></th>
+              <th><p><%= user.name %></p></th>
+              <th><%= link_to "Show", "/users/#{user.id}" %></th>
+
+
+            </tr>
+          <% end %>
+          <%= paginate @users %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

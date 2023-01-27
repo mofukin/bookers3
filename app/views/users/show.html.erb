@@ -1,38 +1,56 @@
-<div>
-  <h1>User info</h1>
-  <%= image_tag @user.get_profile_image(100,100) %><br>
+<%= flash[:notice] %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <div>
+        <h1>User info</h1>
+        <%= image_tag @user.get_profile_image(100,100) %><br>
+        <table>
+          <tr>
+
+            <th>name<br></th>
+            <th><%= @user.name %></th>
+          </tr>
+          <tr>
+            <th>introduction</th>
+            <th><%= @user.introduction %></th>
+          </tr>
+
+        </table>
+        <% if @user.id == current_user.id %>
+          <%= link_to "/users/#{@user.id}/edit", class: "btn btn-secondary" do %>
+          <i class="fas fa-users-cog"></i>
+          <% end %>
+        <% end %>
+      </div>
+
+
+
+    <%= render partial: 'books/new',locals: {book: @book} %>
+    </div>
+
+
+<div class="col-lg-9">
+ <div>
+  <h1>Books</h1>
   <table>
     <tr>
-
-      <th>name<br></th>
-      <th><%= @user.name %></th>
+      <th></th>
+      <th>Title</th>
+      <th>Opinion</th>
     </tr>
+    <% @post_books.each do |book| %>
     <tr>
-      <th>introduction</th>
-      <th><%= @user.introduction %></th>
+      <th><p><%= image_tag book.user.get_profile_image(100,100) %></p></th>
+      <th><p><%= link_to book.title, "/books/#{book.id}" %></p></th>
+      <th><p><%= book.body %></p></th>
+      <th>♥<%= book.favorites.count %></th>
+       <th><p><%= link_to "コメント数:#{book.comments.count}", books_path(book.id) %></p></th>
     </tr>
-
-  </table>
+      <% end %>
+      <%= paginate @post_books %>
+    </table>
+    </div>
+  </div>
+  </div>
 </div>
-
-<div>
-  <h1>New book</h1>
-
-  <%= form_with model: @book, url: '/users', method: :post do |f| %>
-    <h4>title</h4>
-    <%= f.text_field :title %>
-    <h4>body</h4>
-    <%= f.text_area :body %><br>
-    <%= f.submit 'Create Book' %>
-  <% end %>
-</div>
-
-<div>
-  <% @post_books.each do |book| %>
-
-  <p>投稿ユーザー画像：<%= image_tag book.user.get_profile_image(100,100) %></p>
-  <p>title：<%= book.title %></p>
-  <p>body：<%= book.body %></p>
-
-</div>
-<% end %>
