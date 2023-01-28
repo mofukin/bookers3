@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   delete '/users/sign_out' => 'users#destroy', as: 'logout'
 
   resources :books, only: [:new, :index, :show, :edit, :create] do
-    resources :comments, only: [:create, :destroy]
+    resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
 

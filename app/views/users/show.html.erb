@@ -1,7 +1,7 @@
 <%= flash[:notice] %>
 <div class="container">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-md-3">
       <div>
         <h1>User info</h1>
         <%= image_tag @user.get_profile_image(100,100) %><br>
@@ -17,11 +17,11 @@
           </tr>
 
         </table>
-        <% if @user.id == current_user.id %>
+
           <%= link_to "/users/#{@user.id}/edit", class: "btn btn-secondary" do %>
-          <i class="fas fa-users-cog"></i>
+          <i class="fas fa-user-cog"></i>
           <% end %>
-        <% end %>
+
       </div>
 
 
@@ -30,7 +30,7 @@
     </div>
 
 
-<div class="col-lg-9">
+<div class="col-md-8 offset-md-1">
  <div>
   <h1>Books</h1>
   <table>
@@ -41,11 +41,15 @@
     </tr>
     <% @post_books.each do |book| %>
     <tr>
-      <th><p><%= image_tag book.user.get_profile_image(100,100) %></p></th>
+      <th>
+        <%= link_to "/users/#{book.user.id}" do %>
+          <%= image_tag book.user.get_profile_image(100,100) %>
+        <% end %>
+      </th>
       <th><p><%= link_to book.title, "/books/#{book.id}" %></p></th>
       <th><p><%= book.body %></p></th>
       <th>♥<%= book.favorites.count %></th>
-       <th><p><%= link_to "コメント数:#{book.comments.count}", books_path(book.id) %></p></th>
+       <th><p><%= link_to "コメント数:#{book.book_comments.count}", books_path(book.id) %></p></th>
     </tr>
       <% end %>
       <%= paginate @post_books %>
