@@ -1,10 +1,17 @@
 class BookCommentsController < ApplicationController
   def create
     book = Book.find(params[:book_id])
-    comment = current_user.book_comments.new(book_comment_params)
+    comment = current_user.book_comments.new(post_comment_params)
     comment.book_id = book.id
     comment.save
-    redirect_to book_path(book)
+      redirect_to book_path(book)
+    # else
+    #   @user = User.find(current_user.id)
+    #   @books = Book.page(params[:page])
+    #   @book = Book.new
+    #   @error = comment
+      # render :books
+    # end
   end
 
   def destroy
@@ -14,7 +21,7 @@ class BookCommentsController < ApplicationController
 
   private
 
-  def book_comment_params
-    params.require(:comment).permit(:comment)
+  def post_comment_params
+    params.require(:book_comment).permit(:comment)
   end
 end

@@ -48,8 +48,8 @@
       </th>
       <th><p><%= link_to book.title, "/books/#{book.id}" %></p></th>
       <th><p><%= book.body %></p></th>
-      <th>♥<%= book.favorites.count %></th>
-       <th><p><%= link_to "コメント数:#{book.book_comments.count}", books_path(book.id) %></p></th>
+      <th><i class="fas fa-heart"></i><%= book.favorites.count %></th>
+       <th><p><%= "コメント数:#{book.book_comments.count}" %></p></th>
     </tr>
       <% end %>
       <%= paginate @post_books %>
